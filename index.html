@@ -1,119 +1,722 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Portfolio</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
-  <style>
-    /* Scroll reveal */
-    .reveal { opacity: 0; transform: translateY(40px); transition: all 0.7s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-    /* Floating icons */
-    .floating-icon { position: absolute; animation: float 6s ease-in-out infinite; opacity: 0.2; }
-    @keyframes float { 0% { transform: translateY(0); } 50% { transform: translateY(-20px); } 100% { transform: translateY(0); } }
-    /* Back to top */
-    #back-to-top { position: fixed; bottom: 30px; right: 30px; display: none; }
-    #back-to-top.visible { display: block; }
-  </style>
-</head>
-<body class="bg-gray-950 text-gray-100 relative">
-
-  <!-- Background Particles -->
-  <div id="particles-js" class="absolute inset-0 -z-10"></div>
-
-  <!-- Hero Section -->
-  <section class="min-h-screen flex flex-col items-center justify-center text-center px-4">
-    <h1 class="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-blue-400 to-violet-500 bg-clip-text text-transparent mb-6">
-      Ayush Agrawal
-    </h1>
-    <p class="text-lg md:text-xl max-w-2xl">Turning Data into Business Impact through Analytics & Visualization</p>
-    <div class="mt-6 space-x-4">
-      <a href="resume.pdf" class="px-5 py-2 bg-blue-600 rounded-lg shadow hover:bg-blue-700 transition">Download Resume</a>
-      <a href="https://github.com/ayushhhhhhhh" target="_blank" class="px-5 py-2 bg-gray-700 rounded-lg shadow hover:bg-gray-600 transition">GitHub</a>
-    </div>
-  </section>
-
-  <!-- About Section -->
-  <section id="about" class="py-20 reveal">
-    <h2 class="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-blue-400 to-violet-500 bg-clip-text text-transparent">About Me</h2>
-    <p class="max-w-3xl mx-auto text-center text-lg">
-      I am a Data Analyst passionate about extracting insights from data using SQL, Python, Power BI, and Machine Learning. I build end-to-end projects that solve real-world problems.
-    </p>
-  </section>
-
-  <!-- Projects Section -->
-  <section id="projects" class="py-20 bg-gray-900 reveal">
-    <h2 class="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-blue-400 to-violet-500 bg-clip-text text-transparent">Projects</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto px-6">
-      <div class="bg-gray-800 rounded-2xl shadow-lg p-6 hover:scale-105 transition">
-        <h3 class="text-xl font-semibold mb-2">Sales Forecasting</h3>
-        <p class="text-sm text-gray-400">Built a ML model to forecast monthly sales with 92% accuracy using Python & Power BI.</p>
-        <a href="#" class="text-blue-400 mt-3 inline-block">View Project →</a>
-      </div>
-      <div class="bg-gray-800 rounded-2xl shadow-lg p-6 hover:scale-105 transition">
-        <h3 class="text-xl font-semibold mb-2">Customer Segmentation</h3>
-        <p class="text-sm text-gray-400">Clustered customer base using unsupervised ML, enabling targeted marketing campaigns.</p>
-        <a href="#" class="text-blue-400 mt-3 inline-block">View Project →</a>
-      </div>
-      <div class="bg-gray-800 rounded-2xl shadow-lg p-6 hover:scale-105 transition">
-        <h3 class="text-xl font-semibold mb-2">Financial Dashboard</h3>
-        <p class="text-sm text-gray-400">Interactive dashboard in Power BI to analyze company KPIs and performance trends.</p>
-        <a href="#" class="text-blue-400 mt-3 inline-block">View Project →</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Skills Section -->
-  <section id="skills" class="py-20 reveal">
-    <h2 class="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-blue-400 to-violet-500 bg-clip-text text-transparent">Skills</h2>
-    <div class="flex flex-wrap justify-center gap-6 max-w-4xl mx-auto text-lg">
-      <span class="px-4 py-2 bg-gray-800 rounded-xl">SQL</span>
-      <span class="px-4 py-2 bg-gray-800 rounded-xl">Python</span>
-      <span class="px-4 py-2 bg-gray-800 rounded-xl">Power BI</span>
-      <span class="px-4 py-2 bg-gray-800 rounded-xl">Excel</span>
-      <span class="px-4 py-2 bg-gray-800 rounded-xl">Machine Learning</span>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact" class="py-20 bg-gray-900 reveal">
-    <h2 class="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-blue-400 to-violet-500 bg-clip-text text-transparent">Contact</h2>
-    <div class="text-center">
-      <p>Email: <a href="mailto:agrawalamanhnd@gmail.com" class="text-blue-400">agrawalamanhnd@gmail.com</a></p>
-      <p>Phone: +91 8619366324</p>
-      <div class="mt-4">
-        <a href="https://linkedin.com/in/ayushhhhhhhh" target="_blank" class="px-5 py-2 bg-blue-600 rounded-lg shadow hover:bg-blue-700 transition">LinkedIn</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Back to Top -->
-  <button id="back-to-top" class="px-4 py-2 bg-violet-600 rounded-full shadow-lg">↑</button>
-
-  <script>
-    // Reveal on scroll
-    const reveals = document.querySelectorAll('.reveal');
-    window.addEventListener('scroll', () => {
-      reveals.forEach(el => {
-        const rect = el.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 100) {
-          el.classList.add('visible');
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayush Singhal - Data Analyst</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0f172a; /* slate-900 */
+            color: #e2e8f0; /* slate-200 */
+            overflow-x: hidden;
         }
-      });
-    });
+        /* Data Network Particle Background */
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+        .section-title {
+            @apply text-4xl md:text-5xl font-bold text-center mb-16;
+            background: linear-gradient(to right, #60a5fa, #8b5cf6); /* blue-400 to violet-500 */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+        .nav-link {
+            @apply text-slate-300 hover:text-white transition-all duration-300 px-3 py-2 rounded-md text-sm font-medium;
+        }
+        .nav-link:hover {
+            transform: translateY(-2px);
+            color: #60a5fa; /* blue-400 */
+        }
+        .glassmorphism {
+            background: rgba(15, 23, 42, 0.6); /* slate-900 with opacity */
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .glassmorphism:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.3), 0 15px 25px rgba(0,0,0,0.3);
+        }
+        /* Reveal on scroll animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-    // Back to top button
-    const topBtn = document.getElementById('back-to-top');
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) topBtn.classList.add('visible');
-      else topBtn.classList.remove('visible');
-    });
-    topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+        /* --- 3. Animated Journey Timeline Styles --- */
+        .timeline-container { 
+            position: relative; 
+            --timeline-progress: 0%; /* Custom property for progress */
+        }
+        .timeline-road { 
+            position: absolute; 
+            top: 0; 
+            bottom: 0; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            width: 3px; 
+            background-color: #334155; 
+        }
+        /* Glowing Progress Bar */
+        .timeline-road::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--timeline-progress);
+            background: linear-gradient(to bottom, #3b82f6, #8b5cf6);
+            box-shadow: 0 0 10px #3b82f6, 0 0 20px #8b5cf6;
+            transition: height 0.3s ease-out;
+        }
+        .timeline-checkpoint { 
+            position: absolute; 
+            left: 50%; 
+            transform: translateX(-50%) scale(0.8); 
+            width: 24px; 
+            height: 24px; 
+            border-radius: 50%; 
+            background-color: #0f172a; 
+            border: 4px solid #3b82f6; 
+            z-index: 10; 
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+        }
+        .timeline-checkpoint.active { 
+            transform: translateX(-50%) scale(1.2); 
+            box-shadow: 0 0 15px #3b82f6, 0 0 25px #3b82f6; /* Glowing pulse */
+        }
+        /* Bouncing icon animation */
+        .timeline-checkpoint.active i {
+            animation: bounce-in 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+        }
+        @keyframes bounce-in {
+            0% { transform: scale(0.5); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
 
-    // Particles.js config
-    particlesJS.load('particles-js', 'https://cdn.jsdelivr.net/gh/VincentGarreau/particles.js/particles.json');
-  </script>
+        @media (max-width: 767px) {
+            .timeline-road { left: 10px; transform: translateX(0); }
+            .timeline-checkpoint { left: 10px; }
+            .timeline-card-left, .timeline-card-right { width: auto; margin-left: 2.5rem; margin-right: 0; padding-left: 0; padding-right: 0; text-align: left; }
+        }
+        
+        /* --- 4. Floating SVG Icons --- */
+        #floating-icon-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .icon-set {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.7s ease-in-out;
+        }
+        .icon-set.active {
+            opacity: 1;
+        }
+        .floating-svg {
+            position: absolute;
+            color: rgba(59, 130, 246, 0.1);
+            animation: float 20s infinite ease-in-out;
+            font-size: 80px; /* Base size for Font Awesome icons */
+        }
+        /* Individual icon positions and animations */
+        .floating-svg.pos-1 { top: 15%; left: 10%; width: 140px; animation-duration: 25s; }
+        .floating-svg.pos-2 { top: 60%; right: 15%; width: 70px; animation-duration: 30s; animation-delay: 3s; }
+        .floating-svg.pos-3 { top: 25%; right: 5%; width: 40px; animation-duration: 22s; animation-delay: 1s; }
+        .floating-svg.pos-4 { top: 75%; left: 20%; width: 110px; animation-duration: 28s; animation-delay: 2s; }
+        .floating-svg.pos-5 { top: 5%; right: 30%; width: 80px; animation-duration: 24s; animation-delay: 4s; }
+        .floating-svg.pos-6 { top: 80%; right: 40%; width: 100px; animation-duration: 32s; animation-delay: 5s; }
+        .floating-svg.pos-7 { top: 40%; left: 5%; width: 60px; animation-duration: 26s; animation-delay: 6s; }
+
+        @keyframes float {
+            0% { transform: translateY(0px) translateX(0px); }
+            50% { transform: translateY(-25px) translateX(20px); }
+            100% { transform: translateY(0px) translateX(0px); }
+        }
+
+        /* --- 5. Typing Animation --- */
+        #typing-subtitle::after {
+            content: '|';
+            display: inline-block;
+            animation: blink 0.7s infinite;
+            color: #60a5fa;
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Back to Top Button */
+        #back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: none;
+            transition: opacity 0.3s, transform 0.3s;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        #back-to-top.visible {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Data Network Background -->
+    <div id="particles-js"></div>
+
+    <!-- Floating Icons Container -->
+    <div id="floating-icon-container">
+        <!-- Home Icons -->
+        <div id="home-icons" class="icon-set">
+            <svg class="floating-svg pos-1" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><rect x="10" y="60" width="15" height="40" fill="currentColor" /><rect x="35" y="40" width="15" height="60" fill="currentColor" /><rect x="60" y="20" width="15" height="80" fill="currentColor" /><rect x="85" y="50" width="15" height="50" fill="currentColor" /></svg>
+            <div class="floating-svg pos-2 font-mono">01</div>
+            <svg class="floating-svg pos-4" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M 50,50 m -40,0 a 40,40 0 1,0 80,0 a 40,40 0 1,0 -80,0" fill="none" stroke="currentColor" stroke-width="8"/><path d="M 50,50 L 50,10 L 90,50 z" fill="currentColor"/></svg>
+            <svg class="floating-svg pos-5" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><polyline points="10,90 30,40 50,60 70,20 90,70" fill="none" stroke="currentColor" stroke-width="8" /></svg>
+            <svg class="floating-svg pos-6" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" stroke-width="10"/><path d="M50,10 A 40 40, 0, 0, 1, 90 50" fill="none" stroke="#8b5cf6" stroke-width="12" /></svg>
+        </div>
+        <!-- Journey Icons -->
+        <div id="journey-icons" class="icon-set">
+            <div class="floating-svg pos-1"><i class="fas fa-school"></i></div>
+            <div class="floating-svg pos-2"><i class="fas fa-graduation-cap"></i></div>
+            <div class="floating-svg pos-3"><i class="fas fa-certificate"></i></div>
+            <div class="floating-svg pos-4"><i class="fas fa-shield-alt"></i></div>
+            <div class="floating-svg pos-5"><i class="fas fa-rocket"></i></div>
+        </div>
+        <!-- Projects Icons -->
+        <div id="projects-icons" class="icon-set">
+            <div class="floating-svg pos-1"><i class="fab fa-python"></i></div>
+            <div class="floating-svg pos-2"><i class="fas fa-database"></i></div>
+            <div class="floating-svg pos-4"><i class="fas fa-chart-bar"></i></div>
+            <div class="floating-svg pos-5"><i class="fas fa-robot"></i></div>
+            <div class="floating-svg pos-6"><i class="fas fa-code"></i></div>
+        </div>
+        <!-- Skills Icons -->
+        <div id="skills-icons" class="icon-set">
+            <div class="floating-svg pos-1"><i class="fas fa-book"></i></div> <!-- Pandas -->
+            <div class="floating-svg pos-2"><i class="fas fa-infinity"></i></div> <!-- NumPy -->
+            <div class="floating-svg pos-3"><i class="fas fa-brain"></i></div> <!-- Scikit-learn -->
+            <div class="floating-svg pos-4"><i class="fab fa-git-alt"></i></div>
+            <div class="floating-svg pos-5"><i class="fas fa-file-excel"></i></div>
+        </div>
+        <!-- Contact Icons -->
+        <div id="contact-icons" class="icon-set">
+            <div class="floating-svg pos-1"><i class="fas fa-envelope"></i></div>
+            <div class="floating-svg pos-2"><i class="fab fa-linkedin"></i></div>
+            <div class="floating-svg pos-4"><i class="fas fa-phone"></i></div>
+            <div class="floating-svg pos-5"><i class="fas fa-download"></i></div>
+        </div>
+    </div>
+
+    <!-- Header & Navigation -->
+    <header id="header" class="bg-slate-900/80 backdrop-blur-sm fixed w-full top-0 z-50 transition-all duration-300">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex-shrink-0">
+                    <a href="#home" class="text-white text-2xl" style="font-family: 'Dancing Script', cursive;">Ayush Singhal</a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#home" class="nav-link">Home</a>
+                        <a href="#journey" class="nav-link">My Journey</a>
+                        <a href="#projects" class="nav-link">Projects</a>
+                        <a href="#skills" class="nav-link">Skills</a>
+                        <a href="#contact" class="nav-link">Contact</a>
+                    </div>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="-mr-2 flex md:hidden">
+                    <button id="mobile-menu-button" type="button" class="bg-slate-800 inline-flex items-center justify-center p-2 rounded-md text-slate-400 hover:text-white hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-800 focus:ring-white">
+                        <span class="sr-only">Open main menu</span>
+                        <i id="menu-icon" class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </nav>
+        <!-- Mobile menu, show/hide based on menu state. -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="nav-link-mobile block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-700">Home</a>
+                <a href="#journey" class="nav-link-mobile block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-700">My Journey</a>
+                <a href="#projects" class="nav-link-mobile block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-700">Projects</a>
+                <a href="#skills" class="nav-link-mobile block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-700">Skills</a>
+                <a href="#contact" class="nav-link-mobile block px-3 py-2 rounded-md text-base font-medium text-slate-300 hover:text-white hover:bg-slate-700">Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="relative z-10">
+        <!-- Hero Section -->
+        <section id="home" class="min-h-screen flex items-center justify-center text-center relative">
+            <div class="container mx-auto px-4">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-white leading-tight reveal">
+                    Hi, I'm Ayush Singhal
+                </h1>
+                <p id="typing-subtitle" class="mt-4 text-xl md:text-2xl text-blue-400 font-semibold reveal" style="transition-delay: 0.5s; min-height: 2.5rem;">
+                    <!-- Typing text will appear here -->
+                </p>
+                <div class="mt-8 reveal" style="transition-delay: 1s;">
+                     <a href="#journey" class="inline-block bg-gradient-to-r from-blue-500 to-indigo-600 text-white font-bold py-3 px-8 rounded-full hover:from-blue-600 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105">
+                        Discover My Journey
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Journey Section -->
+        <section id="journey" class="py-20 sm:py-32">
+            <div class="container mx-auto px-4">
+                <h2 class="section-title reveal">My Journey</h2>
+                <div id="timeline" class="timeline-container max-w-4xl mx-auto">
+                    <div class="timeline-road hidden md:block"></div>
+                    
+                    <!-- Checkpoint 1 -->
+                    <div class="relative mb-12 md:mb-24 reveal">
+                        <div class="timeline-checkpoint" style="top: 0;"><i class="fas fa-school text-blue-400"></i></div>
+                        <div class="md:w-1/2 md:ml-auto md:pl-12 timeline-card-right">
+                            <div class="glassmorphism rounded-lg p-6 text-center md:text-left">
+                                <h3 class="text-xl font-bold text-white">The Foundation</h3>
+                                <p class="font-medium text-slate-300">Divine Angels Sr. Sec. School (2007-2019)</p>
+                                <p class="text-slate-300 text-sm mt-2">My school years built a disciplined, analytical mindset, laying the groundwork for a future in data.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Checkpoint 2 -->
+                    <div class="relative mb-12 md:mb-24 reveal">
+                        <div class="timeline-checkpoint" style="top: 0;"><i class="fas fa-graduation-cap text-blue-400"></i></div>
+                        <div class="md:w-1/2 md:mr-auto md:pr-12 timeline-card-left">
+                             <div class="glassmorphism rounded-lg p-6 text-center md:text-right">
+                                <h3 class="text-xl font-bold text-white">The Spark</h3>
+                                <p class="font-medium text-slate-300">B.Tech at SKIT, Jaipur (2020-2024)</p>
+                                <p class="text-slate-300 text-sm mt-2">At university, my interest ignited into a passion. I learned that data held stories and mastered the tools to tell them.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Checkpoint 3 -->
+                    <div class="relative mb-12 md:mb-24 reveal">
+                        <div class="timeline-checkpoint" style="top: 0;"><i class="fas fa-certificate text-blue-400"></i></div>
+                        <div class="md:w-1/2 md:ml-auto md:pl-12 timeline-card-right">
+                            <div class="glassmorphism rounded-lg p-6 text-center md:text-left">
+                                <h3 class="text-xl font-bold text-white">Certifications & Coursework</h3>
+                                <div class="text-slate-300 text-sm mt-2 space-y-1">
+                                    <p><strong>Business Analysis & Process Management</strong> (Coursera)</p>
+                                    <p><strong>Introduction to Data Analytics</strong> (Simplilearn)</p>
+                                    <p><strong>Introduction to MS Excel</strong> (Simplilearn)</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Checkpoint 4 -->
+                    <div class="relative mb-12 md:mb-24 reveal">
+                        <div class="timeline-checkpoint" style="top: 0;"><i class="fas fa-shield-alt text-blue-400"></i></div>
+                        <div class="md:w-1/2 md:mr-auto md:pr-12 timeline-card-left">
+                             <div class="glassmorphism rounded-lg p-6 text-center md:text-right">
+                                <h3 class="text-xl font-bold text-white">Internship Experience</h3>
+                                <p class="font-medium text-slate-300">Ethical Hacking Intern | Internshala (Sep 2023)</p>
+                                <p class="text-slate-300 text-sm mt-2">Analyzed system processes to identify potential security vulnerabilities and data integrity risks, gaining experience in assessing the security posture of data-handling applications.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Checkpoint 5 -->
+                    <div class="relative reveal">
+                         <div class="timeline-checkpoint" style="top: 0;"><i class="fas fa-rocket text-blue-400"></i></div>
+                        <div class="md:w-1/2 md:ml-auto md:pl-12 timeline-card-right">
+                            <div class="glassmorphism rounded-lg p-6 text-center md:text-left">
+                                <h3 class="text-xl font-bold text-white">The Application</h3>
+                                <p class="font-medium text-slate-300">Real-World Projects</p>
+                                <p class="text-slate-300 text-sm mt-2">Through practical projects, I transformed knowledge into impact, learning to bridge technical analysis and strategic goals.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-20 sm:py-32 bg-slate-900/50">
+            <div class="container mx-auto px-4">
+                <h2 class="section-title reveal">My Projects</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    
+                    <!-- Project Card 1 -->
+                    <div class="glassmorphism rounded-lg p-8 flex flex-col reveal" style="transition-delay: 100ms;">
+                        <a href="https://ayushhhhhhhh.github.io/3_Indian-Retail-Analysis/" target="_blank" rel="noopener noreferrer" class="group">
+                            <h3 class="text-xl font-bold text-white mb-3 flex items-center">
+                                Indian Retail Performance Analysis
+                                <i class="fas fa-external-link-alt text-slate-300 ml-2 text-xs group-hover:text-blue-400 transition-colors"></i>
+                            </h3>
+                        </a>
+                        <ul class="space-y-3 text-slate-300 text-sm mb-6">
+                            <li class="flex items-start"><i class="fas fa-check-circle text-blue-400 mr-2 mt-1"></i><span>Identified key profit drivers, recommending a focus on Fashion (+30.2% margin) to boost profitability.</span></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-blue-400 mr-2 mt-1"></i><span>Built a Power BI dashboard that improved stakeholder data access by 15%.</span></li>
+                        </ul>
+                        <div class="mt-auto flex flex-wrap gap-2">
+                            <span class="bg-slate-800 text-xs text-blue-300 px-3 py-1 rounded-full">Python</span>
+                            <span class="bg-slate-800 text-xs text-blue-300 px-3 py-1 rounded-full">SQL</span>
+                            <span class="bg-slate-800 text-xs text-blue-300 px-3 py-1 rounded-full">Power BI</span>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 2 -->
+                    <div class="glassmorphism rounded-lg p-8 flex flex-col reveal" style="transition-delay: 200ms;">
+                        <a href="https://ayushhhhhhhh.github.io/2_Upi_Analysis/" target="_blank" rel="noopener noreferrer" class="group">
+                            <h3 class="text-xl font-bold text-white mb-3 flex items-center">
+                                UPI Transaction Growth Analysis
+                                <i class="fas fa-external-link-alt text-slate-300 ml-2 text-xs group-hover:text-violet-400 transition-colors"></i>
+                            </h3>
+                        </a>
+                        <ul class="space-y-3 text-slate-300 text-sm mb-6">
+                            <li class="flex items-start"><i class="fas fa-check-circle text-violet-400 mr-2 mt-1"></i><span>Uncovered a 7,860% growth in monthly transaction volume, highlighting massive market adoption.</span></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-violet-400 mr-2 mt-1"></i><span>Revealed a 50% decrease in average transaction value, signaling a shift toward smaller, frequent payments.</span></li>
+                        </ul>
+                        <div class="mt-auto flex flex-wrap gap-2">
+                            <span class="bg-slate-800 text-xs text-violet-300 px-3 py-1 rounded-full">Python</span>
+                            <span class="bg-slate-800 text-xs text-violet-300 px-3 py-1 rounded-full">Power BI</span>
+                             <span class="bg-slate-800 text-xs text-violet-300 px-3 py-1 rounded-full">SQL</span>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 3 -->
+                    <div class="glassmorphism rounded-lg p-8 flex flex-col reveal" style="transition-delay: 300ms;">
+                        <a href="https://telecom-churn-prediction-dashboard.streamlit.app/" target="_blank" rel="noopener noreferrer" class="group">
+                            <h3 class="text-xl font-bold text-white mb-3 flex items-center">
+                                Telecom Churn Prediction
+                                <i class="fas fa-external-link-alt text-slate-300 ml-2 text-xs group-hover:text-emerald-400 transition-colors"></i>
+                            </h3>
+                        </a>
+                        <ul class="space-y-3 text-slate-300 text-sm mb-6">
+                            <li class="flex items-start"><i class="fas fa-check-circle text-emerald-400 mr-2 mt-1"></i><span>Developed a predictive model with 79% accuracy, enabling proactive customer retention strategies.</span></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-emerald-400 mr-2 mt-1"></i><span>Deployed an interactive Streamlit dashboard for real-time, data-driven risk assessment by business users.</span></li>
+                        </ul>
+                        <div class="mt-auto flex flex-wrap gap-2">
+                            <span class="bg-slate-800 text-xs text-emerald-300 px-3 py-1 rounded-full">Python</span>
+                            <span class="bg-slate-800 text-xs text-emerald-300 px-3 py-1 rounded-full">Machine Learning</span>
+                            <span class="bg-slate-800 text-xs text-emerald-300 px-3 py-1 rounded-full">Streamlit</span>
+                        </div>
+                    </div>
+
+                    <!-- Project Card 4 -->
+                    <div class="glassmorphism rounded-lg p-8 flex flex-col reveal" style="transition-delay: 400ms;">
+                         <a href="https://ayushhhhhhhh.github.io/4_Multidomain-Analytics-Projects/" target="_blank" rel="noopener noreferrer" class="group">
+                            <h3 class="text-xl font-bold text-white mb-3 flex items-center">
+                                Multidomain Data Analysis
+                                <i class="fas fa-external-link-alt text-slate-300 ml-2 text-xs group-hover:text-amber-400 transition-colors"></i>
+                            </h3>
+                        </a>
+                        <ul class="space-y-3 text-slate-300 text-sm mb-6">
+                            <li class="flex items-start"><i class="fas fa-check-circle text-amber-400 mr-2 mt-1"></i><span>Created an E-commerce dashboard to visualize sales data, leading to the identification of key profitability drivers.</span></li>
+                            <li class="flex items-start"><i class="fas fa-check-circle text-amber-400 mr-2 mt-1"></i><span>Pinpointed low salary as the primary driver for 69% of attritions, providing a clear focus for HR initiatives.</span></li>
+                        </ul>
+                        <div class="mt-auto flex flex-wrap gap-2">
+                            <span class="bg-slate-800 text-xs text-amber-300 px-3 py-1 rounded-full">Power BI</span>
+                            <span class="bg-slate-800 text-xs text-amber-300 px-3 py-1 rounded-full">SQL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="py-20 sm:py-32">
+            <div class="container mx-auto px-4">
+                <h2 class="section-title reveal">Technical Toolkit</h2>
+                <div class="max-w-5xl mx-auto space-y-12">
+                    <!-- Category 1 -->
+                    <div class="reveal" style="transition-delay: 100ms;">
+                        <h3 class="text-2xl font-semibold text-white mb-4">Data Analysis & Visualization</h3>
+                        <p class="text-slate-300 mb-6 max-w-2xl">I transform complex datasets into clear, actionable insights, creating interactive dashboards that empower stakeholders to make informed decisions.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <div class="glassmorphism rounded-lg p-4 flex items-center gap-3"><i class="fas fa-chart-bar text-blue-400"></i><span>Power BI</span></div>
+                            <div class="glassmorphism rounded-lg p-4 flex items-center gap-3"><i class="fas fa-file-excel text-blue-400"></i><span>Excel</span></div>
+                            <div class="glassmorphism rounded-lg p-4 flex items-center gap-3"><i class="fas fa-calculator text-blue-400"></i><span>DAX</span></div>
+                        </div>
+                    </div>
+                     <!-- Category 2 -->
+                    <div class="reveal" style="transition-delay: 200ms;">
+                        <h3 class="text-2xl font-semibold text-white mb-4">Programming & Databases</h3>
+                        <p class="text-slate-300 mb-6 max-w-2xl">My programming skills are the engine behind my analysis, allowing me to efficiently manipulate data, build predictive models, and query complex databases.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <div class="glassmorphism rounded-lg p-4 flex items-center gap-3"><i class="fab fa-python text-blue-400"></i><span>Python</span></div>
+                            <div class="glassmorphism rounded-lg p-4 flex items-center gap-3"><i class="fas fa-database text-blue-400"></i><span>SQL</span></div>
+                            <div class="glassmorphism rounded-lg p-4 flex items-center gap-3"><i class="fas fa-server text-blue-400"></i><span>MySQL</span></div>
+                        </div>
+                    </div>
+                     <!-- Category 3 -->
+                    <div class="reveal" style="transition-delay: 300ms;">
+                        <h3 class="text-2xl font-semibold text-white mb-4">Libraries & Tools</h3>
+                        <p class="text-slate-300 mb-6 max-w-2xl">I leverage a modern stack of libraries and tools to streamline my workflow, from data cleaning and statistical modeling to version control and collaboration.</p>
+                        <div class="flex flex-wrap gap-4">
+                            <div class="glassmorphism rounded-lg p-4 flex items-center gap-3"><i class="fas fa-book text-blue-400"></i><span>Pandas</span></div>
+                            <div class="glassmorphism rounded-lg p-4 flex items-center gap-3"><i class="fas fa-infinity text-blue-400"></i><span>NumPy</span></div>
+                            <div class="glassmorphism rounded-lg p-4 flex items-center gap-3"><i class="fas fa-robot text-blue-400"></i><span>Scikit-learn</span></div>
+                            <div class="glassmorphism rounded-lg p-4 flex items-center gap-3"><i class="fab fa-git-alt text-blue-400"></i><span>Git & GitHub</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 sm:py-32 bg-slate-900/50">
+            <div class="container mx-auto px-4">
+                <h2 class="section-title reveal">Let's Connect</h2>
+                <div class="max-w-xl mx-auto text-center glassmorphism p-8 rounded-lg">
+                    <p class="text-lg mb-8">
+                        I'm always excited to discuss new projects and opportunities in data. If you'd like to chat, please don't hesitate to reach out.
+                    </p>
+                    <div class="flex flex-col items-center justify-center gap-6">
+                        <!-- Hidden inputs for copy functionality -->
+                        <input type="text" value="singhalayu0411@gmail.com" id="email-text" class="sr-only">
+                        <input type="text" value="+918696589671" id="phone-text" class="sr-only">
+
+                        <button data-copy-target="email-text" class="copy-btn font-medium text-lg hover:text-blue-400 transition-colors"><i class="fas fa-envelope mr-3"></i><span class="btn-text">singhalayu0411@gmail.com</span></button>
+                        <a href="https://linkedin.com/in/ayushsinghalconnect" target="_blank" rel="noopener noreferrer" class="font-medium text-lg hover:text-blue-400 transition-colors"><i class="fab fa-linkedin mr-3"></i>Connect on LinkedIn</a>
+                        <button data-copy-target="phone-text" class="copy-btn font-medium text-lg hover:text-blue-400 transition-colors"><i class="fas fa-phone mr-3"></i><span class="btn-text">+91 86965 89671</span></button>
+                    </div>
+                    <div class="mt-10">
+                        <a href="./Ayush Singhal Resume.pdf" download="Ayush_Singhal_Resume.pdf" class="bg-gradient-to-r from-violet-600 to-indigo-600 text-white font-bold py-3 px-8 rounded-full hover:from-violet-700 hover:to-indigo-700 transition-all duration-300 transform hover:scale-105 inline-block w-full sm:w-auto">
+                            Download My Resume
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900/50 py-8 relative z-10">
+        <div class="container mx-auto px-4 text-center text-slate-300">
+            <div class="flex justify-center space-x-6 mb-4">
+                <a href="https://github.com/Ayushhhhhhhh" target="_blank" rel="noopener noreferrer" class="hover:text-blue-400 transition-transform transform hover:scale-125 duration-300"><i class="fab fa-github fa-2x"></i></a>
+                <a href="https://linkedin.com/in/ayushsinghalconnect" target="_blank" rel="noopener noreferrer" class="hover:text-blue-400 transition-transform transform hover:scale-125 duration-300"><i class="fab fa-linkedin fa-2x"></i></a>
+            </div>
+            <p>&copy; 2024 Ayush Singhal. All Rights Reserved.</p>
+        </div>
+    </footer>
+    
+    <!-- Back to Top Button -->
+    <button id="back-to-top" class="bg-blue-600 text-white w-12 h-12 rounded-full hover:bg-blue-700 transition-colors duration-300 z-50">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Particles.js script -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Particles.js Configuration for Data Network ---
+            particlesJS('particles-js', {
+              "particles": {
+                "number": { "value": 60, "density": { "enable": true, "value_area": 800 } },
+                "color": { "value": "#3b82f6" },
+                "shape": { "type": "circle" },
+                "opacity": { "value": 0.5, "random": true },
+                "size": { "value": 3, "random": true },
+                "line_linked": { "enable": true, "distance": 150, "color": "#334155", "opacity": 0.4, "width": 1 },
+                "move": { "enable": true, "speed": 1, "direction": "none", "random": true, "straight": false, "out_mode": "out" }
+              },
+              "interactivity": {
+                "detect_on": "canvas",
+                "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": false }, "resize": true },
+                "modes": { "grab": { "distance": 140, "line_opacity": 1 } }
+              },
+              "retina_detect": true
+            });
+            
+            // --- Mobile menu toggle ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const menuIcon = document.getElementById('menu-icon');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                menuIcon.classList.toggle('fa-bars');
+                menuIcon.classList.toggle('fa-times');
+            });
+
+            document.querySelectorAll('.nav-link-mobile').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                    menuIcon.classList.remove('fa-times');
+                    menuIcon.classList.add('fa-bars');
+                });
+            });
+
+            // --- Header background on scroll ---
+            const header = document.getElementById('header');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('bg-slate-900/80', 'backdrop-blur-sm');
+                } else {
+                    header.classList.remove('bg-slate-900/80', 'backdrop-blur-sm');
+                }
+            });
+
+            // --- Typing Animation for Subtitle ---
+            const typingElement = document.getElementById('typing-subtitle');
+            const phrases = [
+                "Turning Data into Decisions",
+                "Finding Stories in Numbers",
+                "Powering Insight-Driven Growth"
+            ];
+            let phraseIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+
+            function type() {
+                const currentPhrase = phrases[phraseIndex];
+                if (isDeleting) {
+                    typingElement.textContent = currentPhrase.substring(0, charIndex - 1);
+                    charIndex--;
+                } else {
+                    typingElement.textContent = currentPhrase.substring(0, charIndex + 1);
+                    charIndex++;
+                }
+
+                if (!isDeleting && charIndex === currentPhrase.length) {
+                    setTimeout(() => isDeleting = true, 2000);
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    phraseIndex = (phraseIndex + 1) % phrases.length;
+                }
+
+                const typeSpeed = isDeleting ? 50 : 100;
+                setTimeout(type, typeSpeed);
+            }
+            type();
+
+            // --- Animated Timeline Progress ---
+            const timeline = document.getElementById('timeline');
+            if (timeline) {
+                const timelineRoad = timeline.querySelector('.timeline-road');
+                
+                window.addEventListener('scroll', () => {
+                    const timelineRect = timeline.getBoundingClientRect();
+                    const windowHeight = window.innerHeight;
+
+                    const startPoint = timeline.offsetTop;
+                    const endPoint = startPoint + timeline.offsetHeight;
+                    const scrollPosition = window.scrollY + windowHeight / 2;
+                    
+                    let progress = 0;
+                    if (scrollPosition > startPoint) {
+                        progress = ((scrollPosition - startPoint) / (endPoint - startPoint)) * 100;
+                    }
+                    progress = Math.min(Math.max(progress, 0), 100);
+                    timeline.style.setProperty('--timeline-progress', `${progress}%`);
+                });
+            }
+
+            // --- Reveal on Scroll (with timeline checkpoint activation) ---
+            const revealElements = document.querySelectorAll('.reveal');
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        const checkpoint = entry.target.querySelector('.timeline-checkpoint');
+                        if(checkpoint) {
+                            setTimeout(() => checkpoint.classList.add('active'), 300);
+                        }
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            revealElements.forEach(el => revealObserver.observe(el));
+
+            // --- Section-specific Floating Icons ---
+            const sections = document.querySelectorAll('main section[id]');
+            const iconSets = document.querySelectorAll('.icon-set');
+
+            const sectionObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const sectionId = entry.target.getAttribute('id');
+                        const targetIconSetId = sectionId + '-icons';
+
+                        iconSets.forEach(set => {
+                            if (set.id === targetIconSetId) {
+                                set.classList.add('active');
+                            } else {
+                                set.classList.remove('active');
+                            }
+                        });
+                    }
+                });
+            }, { threshold: 0.3 }); // Trigger when 30% of the section is visible
+
+            sections.forEach(section => sectionObserver.observe(section));
+
+
+            // --- Copy to Clipboard ---
+            document.querySelectorAll('.copy-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    const targetId = button.dataset.copyTarget;
+                    const targetInput = document.getElementById(targetId);
+                    
+                    targetInput.select();
+                    targetInput.setSelectionRange(0, 99999); // For mobile devices
+
+                    try {
+                        document.execCommand('copy');
+                        const textSpan = button.querySelector('.btn-text');
+                        const originalText = textSpan.textContent;
+                        textSpan.textContent = 'Copied!';
+                        setTimeout(() => {
+                            textSpan.textContent = originalText;
+                        }, 2000);
+                    } catch (err) {
+                        console.error('Failed to copy text: ', err);
+                    }
+                    window.getSelection().removeAllRanges();
+                });
+            });
+
+            // --- Back to Top Button ---
+            const backToTopButton = document.getElementById('back-to-top');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backToTopButton.classList.add('visible');
+                } else {
+                    backToTopButton.classList.remove('visible');
+                }
+            });
+            backToTopButton.addEventListener('click', () => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    </script>
+
 </body>
 </html>
