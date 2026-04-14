@@ -22,6 +22,30 @@
             top: 0;
             left: 0;
         }
+        /* Floating Background Icons */
+        .floating-icons-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        .floating-icon {
+            position: absolute;
+            color: rgba(96, 165, 250, 0.07);
+            filter: blur(1px);
+            animation: float 20s linear infinite;
+        }
+        @keyframes float {
+            0% { transform: translateY(110vh) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
+        }
+
         .glass {
             background: rgba(15, 23, 42, 0.6);
             backdrop-filter: blur(12px);
@@ -31,43 +55,80 @@
             background: linear-gradient(to right, #60a5fa, #8b5cf6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            display: inline-block;
+        }
+        .hero-name-gradient {
+            background: linear-gradient(to right, #60a5fa, #e2e8f0, #93c5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: inline-block;
+            line-height: 1.2;
+            padding-bottom: 0.15em; 
         }
         .reveal {
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s ease-out;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .reveal.active {
             opacity: 1;
             transform: translateY(0);
         }
+        
         /* Journey Timeline Road */
         .timeline-container { position: relative; }
         .timeline-road { 
             position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; 
-            background: linear-gradient(to bottom, #3b82f6, #8b5cf6, transparent); 
+            background: linear-gradient(to bottom, #1e293b, #3b82f6, #8b5cf6, #1e293b); 
             transform: translateX(-50%);
         }
         .timeline-dot {
             position: absolute; left: 50%; transform: translateX(-50%);
-            width: 16px; height: 16px; border-radius: 50%;
-            background: #020617; border: 3px solid #3b82f6; z-index: 10;
+            width: 14px; height: 14px; border-radius: 50%;
+            background: #020617; border: 2px solid #334155; z-index: 10;
+            transition: all 0.5s ease;
+        }
+        .timeline-dot.active {
+            border-color: #60a5fa;
+            background: #60a5fa;
+            box-shadow: 0 0 15px rgba(96, 165, 250, 0.8);
+            transform: translateX(-50%) scale(1.4);
         }
         @media (max-width: 768px) {
             .timeline-road { left: 20px; transform: none; }
             .timeline-dot { left: 20px; transform: translateX(-50%); }
         }
+
+        /* Skill Cards */
+        .skill-icon-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .skill-icon-card:hover {
+            transform: translateY(-5px);
+            border-color: #60a5fa;
+            box-shadow: 0 10px 30px -10px rgba(59, 130, 246, 0.3);
+            background: rgba(30, 41, 59, 0.8);
+        }
+
         /* Typing Cursor */
         .typing-cursor::after {
             content: "|";
             animation: blink 1s infinite;
         }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        .resume-btn:hover {
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.4);
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body class="antialiased">
 
     <div id="particles-js"></div>
+    
+    <!-- Floating Icons Layer -->
+    <div class="floating-icons-container" id="floating-icons"></div>
 
     <header id="navbar" class="fixed w-full top-0 z-50 transition-all duration-300 py-6">
         <nav class="container mx-auto px-6 flex justify-between items-center">
@@ -88,8 +149,8 @@
         <!-- Hero Section -->
         <section id="home" class="min-h-screen flex items-center justify-center pt-20">
             <div class="container mx-auto px-6 text-center">
-                <h1 class="text-6xl md:text-9xl font-bold mb-6 reveal">Ayush Singhal</h1>
-                <div class="text-2xl md:text-4xl font-light text-slate-400 reveal">
+                <h1 class="text-5xl md:text-8xl font-bold mb-6 reveal hero-name-gradient tracking-tight">Ayush Singhal</h1>
+                <div class="text-xl md:text-3xl font-light text-slate-400 reveal">
                     Data Analyst & <span id="typing-text" class="text-white font-medium"></span><span class="typing-cursor"></span>
                 </div>
                 <p class="max-w-xl mx-auto mt-8 text-slate-400 leading-relaxed reveal">
@@ -119,9 +180,9 @@
                 <div class="timeline-container max-w-5xl mx-auto">
                     <div class="timeline-road"></div>
 
-                    <!-- Experience: Proind (PARA FORMAT - SHORTENED) -->
-                    <div class="relative mb-24 reveal">
-                        <div class="timeline-dot top-0"></div>
+                    <!-- Experience: Proind -->
+                    <div class="relative mb-24 reveal timeline-entry" data-dot-id="dot-1">
+                        <div id="dot-1" class="timeline-dot top-0"></div>
                         <div class="md:w-[45%] md:ml-auto md:pl-10">
                             <div class="glass p-8 rounded-2xl border-l-4 border-blue-500 hover:shadow-[0_0_25px_rgba(59,130,246,0.2)] transition-all">
                                 <h3 class="text-xl font-bold text-white">IT Consultant</h3>
@@ -134,8 +195,8 @@
                     </div>
 
                     <!-- Education: SKIT -->
-                    <div class="relative mb-24 reveal">
-                        <div class="timeline-dot top-0"></div>
+                    <div class="relative mb-24 reveal timeline-entry" data-dot-id="dot-2">
+                        <div id="dot-2" class="timeline-dot top-0"></div>
                         <div class="md:w-[45%] md:mr-auto md:text-right md:pr-10">
                             <div class="glass p-8 rounded-2xl border-r-4 border-indigo-500">
                                 <h3 class="text-xl font-bold text-white">B.Tech in Computer Science</h3>
@@ -146,8 +207,8 @@
                     </div>
 
                     <!-- Internship -->
-                    <div class="relative reveal">
-                        <div class="timeline-dot top-0"></div>
+                    <div class="relative mb-24 reveal timeline-entry" data-dot-id="dot-3">
+                        <div id="dot-3" class="timeline-dot top-0"></div>
                         <div class="md:w-[45%] md:ml-auto md:pl-10">
                             <div class="glass p-8 rounded-2xl">
                                 <h3 class="text-xl font-bold text-white">Ethical Hacking Intern</h3>
@@ -156,38 +217,50 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Schooling -->
+                    <div class="relative reveal timeline-entry" data-dot-id="dot-4">
+                        <div id="dot-4" class="timeline-dot top-0"></div>
+                        <div class="md:w-[45%] md:mr-auto md:text-right md:pr-10">
+                            <div class="glass p-8 rounded-2xl border-r-4 border-slate-500">
+                                <h3 class="text-xl font-bold text-white">High School Education</h3>
+                                <p class="text-slate-400 font-medium text-sm mb-2">Divine Angels Sr. Sec. School | 2007 — 2019</p>
+                                <p class="text-slate-500 text-xs italic">Building the analytical foundation and discipline for my engineering career.</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- Skills Section (Categorized) -->
+        <!-- Visual Skills Section -->
         <section id="skills" class="py-24">
             <div class="container mx-auto px-6 max-w-6xl">
-                <h2 class="text-3xl font-bold mb-16 text-center reveal text-gradient">Technical Skillset</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="glass p-8 rounded-2xl reveal">
-                        <h4 class="text-blue-400 font-bold mb-6 uppercase tracking-widest text-xs border-b border-white/10 pb-2">Core Tech</h4>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-slate-800/50 px-3 py-1.5 rounded-lg text-sm border border-white/5">SQL (SSMS)</span>
-                            <span class="bg-slate-800/50 px-3 py-1.5 rounded-lg text-sm border border-white/5">Python</span>
-                            <span class="bg-slate-800/50 px-3 py-1.5 rounded-lg text-sm border border-white/5">C# / .NET</span>
-                        </div>
+                <h2 class="text-3xl font-bold mb-16 text-center reveal text-gradient">Visual Toolkit</h2>
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                    <div class="skill-icon-card glass p-6 rounded-2xl flex flex-col items-center gap-3 reveal">
+                        <i class="fab fa-python text-4xl text-blue-400"></i>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-slate-300">Python</span>
                     </div>
-                    <div class="glass p-8 rounded-2xl reveal" style="transition-delay: 100ms;">
-                        <h4 class="text-indigo-400 font-bold mb-6 uppercase tracking-widest text-xs border-b border-white/10 pb-2">Visualization</h4>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-slate-800/50 px-3 py-1.5 rounded-lg text-sm border border-white/5">Power BI</span>
-                            <span class="bg-slate-800/50 px-3 py-1.5 rounded-lg text-sm border border-white/5">Advanced Excel</span>
-                            <span class="bg-slate-800/50 px-3 py-1.5 rounded-lg text-sm border border-white/5">DAX</span>
-                        </div>
+                    <div class="skill-icon-card glass p-6 rounded-2xl flex flex-col items-center gap-3 reveal">
+                        <i class="fas fa-database text-4xl text-indigo-400"></i>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-slate-300">SQL / SSMS</span>
                     </div>
-                    <div class="glass p-8 rounded-2xl reveal" style="transition-delay: 200ms;">
-                        <h4 class="text-emerald-400 font-bold mb-6 uppercase tracking-widest text-xs border-b border-white/10 pb-2">Infrastructure</h4>
-                        <div class="flex flex-wrap gap-2">
-                            <span class="bg-slate-800/50 px-3 py-1.5 rounded-lg text-sm border border-white/5">IIS Server</span>
-                            <span class="bg-slate-800/50 px-3 py-1.5 rounded-lg text-sm border border-white/5">Deployment</span>
-                            <span class="bg-slate-800/50 px-3 py-1.5 rounded-lg text-sm border border-white/5">Git / GitHub</span>
-                        </div>
+                    <div class="skill-icon-card glass p-6 rounded-2xl flex flex-col items-center gap-3 reveal">
+                        <i class="fas fa-chart-bar text-4xl text-yellow-400"></i>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-slate-300">Power BI</span>
+                    </div>
+                    <div class="skill-icon-card glass p-6 rounded-2xl flex flex-col items-center gap-3 reveal">
+                        <i class="fas fa-code text-4xl text-purple-400"></i>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-slate-300">C# / .NET</span>
+                    </div>
+                    <div class="skill-icon-card glass p-6 rounded-2xl flex flex-col items-center gap-3 reveal">
+                        <i class="fas fa-file-excel text-4xl text-emerald-400"></i>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-slate-300">Excel / DAX</span>
+                    </div>
+                    <div class="skill-icon-card glass p-6 rounded-2xl flex flex-col items-center gap-3 reveal">
+                        <i class="fab fa-git-alt text-4xl text-orange-400"></i>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-slate-300">Git / GitHub</span>
                     </div>
                 </div>
             </div>
@@ -198,29 +271,25 @@
             <div class="container mx-auto px-6">
                 <h2 class="text-3xl font-bold mb-16 text-center reveal text-gradient">Projects & Dashboards</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <!-- Retail -->
                     <div class="glass p-6 rounded-2xl hover:border-blue-500 transition-all reveal">
                         <i class="fas fa-chart-pie text-blue-500 mb-4 text-2xl"></i>
                         <h3 class="font-bold mb-2">Indian Retail Analysis</h3>
                         <p class="text-xs text-slate-400 mb-4 leading-relaxed">SQL & Power BI project identifying profit trends and consumer behavior across multidimensional datasets.</p>
                         <a href="https://ayushhhhhhhh.github.io/3_Indian-Retail-Analysis/" target="_blank" class="text-blue-500 text-xs font-bold uppercase tracking-widest hover:text-white transition-colors">Live View →</a>
                     </div>
-                    <!-- UPI -->
-                    <div class="glass p-6 rounded-2xl hover:border-indigo-500 transition-all reveal" style="transition-delay: 100ms;">
+                    <div class="glass p-6 rounded-2xl hover:border-indigo-500 transition-all reveal">
                         <i class="fas fa-wallet text-indigo-500 mb-4 text-2xl"></i>
                         <h3 class="font-bold mb-2">UPI Growth Insights</h3>
                         <p class="text-xs text-slate-400 mb-4 leading-relaxed">Leveraging Python and Power BI to analyze the exponential growth of micro-payments in India.</p>
                         <a href="https://ayushhhhhhhh.github.io/2_Upi_Analysis/" target="_blank" class="text-indigo-500 text-xs font-bold uppercase tracking-widest hover:text-white transition-colors">Live View →</a>
                     </div>
-                    <!-- Churn -->
-                    <div class="glass p-6 rounded-2xl hover:border-emerald-500 transition-all reveal" style="transition-delay: 200ms;">
+                    <div class="glass p-6 rounded-2xl hover:border-emerald-500 transition-all reveal">
                         <i class="fas fa-users text-emerald-500 mb-4 text-2xl"></i>
                         <h3 class="font-bold mb-2">Churn Prediction</h3>
                         <p class="text-xs text-slate-400 mb-4 leading-relaxed">An ML model built with Streamlit and Scikit-learn achieving 79% accuracy for customer retention.</p>
                         <a href="https://telecom-churn-prediction-dashboard.streamlit.app/" target="_blank" class="text-emerald-500 text-xs font-bold uppercase tracking-widest hover:text-white transition-colors">Live View →</a>
                     </div>
-                    <!-- SQL -->
-                    <div class="glass p-6 rounded-2xl hover:border-amber-500 transition-all reveal" style="transition-delay: 300ms;">
+                    <div class="glass p-6 rounded-2xl hover:border-amber-500 transition-all reveal">
                         <i class="fas fa-database text-amber-500 mb-4 text-2xl"></i>
                         <h3 class="font-bold mb-2">Multi-domain SQL</h3>
                         <p class="text-xs text-slate-400 mb-4 leading-relaxed">Complex SQL data cleaning and analytical querying across disparate business domains.</p>
@@ -230,10 +299,15 @@
             </div>
         </section>
 
-        <!-- Contact Section -->
+        <!-- Contact & Resume Section -->
         <section id="contact" class="py-24">
             <div class="container mx-auto px-6 max-w-2xl text-center reveal">
                 <h2 class="text-4xl font-bold mb-8 text-gradient">Let's Connect</h2>
+                <div class="mb-12">
+                    <a href="Ayush Singhal Resume.pdf" class="resume-btn inline-flex items-center gap-3 bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-10 rounded-xl transition-all">
+                        <i class="fas fa-file-download text-xl"></i> Download Resume
+                    </a>
+                </div>
                 <div class="flex flex-col sm:flex-row justify-center gap-6 mb-12">
                     <a href="mailto:singhalayu0411@gmail.com" class="glass px-10 py-4 rounded-xl hover:border-blue-500 transition-all font-semibold shadow-[0_0_15px_rgba(59,130,246,0.1)]">
                         <i class="fas fa-envelope mr-2 text-blue-500"></i> singhalayu0411@gmail.com
@@ -253,6 +327,7 @@
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
+        // Particles JS Initialization
         particlesJS('particles-js', {
             "particles": {
                 "number": { "value": 40, "density": { "enable": true, "value_area": 800 } },
@@ -261,7 +336,7 @@
                 "opacity": { "value": 0.3 },
                 "size": { "value": 2 },
                 "line_linked": { "enable": true, "distance": 150, "color": "#1e293b", "opacity": 0.4, "width": 1 },
-                "move": { "enable": true, "speed": 2, "direction": "none", "random": true, "straight": false, "out_mode": "out" }
+                "move": { "enable": true, "speed": 1.5, "direction": "none", "random": true, "straight": false, "out_mode": "out" }
             },
             "interactivity": {
                 "detect_on": "canvas",
@@ -271,44 +346,68 @@
             "retina_detect": true
         });
 
+        // Floating Icons Generator
+        const iconClasses = ['fa-python', 'fa-database', 'fa-chart-line', 'fa-code', 'fa-microchip', 'fa-server', 'fa-terminal', 'fa-brain'];
+        const container = document.getElementById('floating-icons');
+        
+        for (let i = 0; i < 15; i++) {
+            const icon = document.createElement('i');
+            const randomIcon = iconClasses[Math.floor(Math.random() * iconClasses.length)];
+            icon.className = `fas ${randomIcon} floating-icon`;
+            icon.style.left = `${Math.random() * 100}%`;
+            icon.style.fontSize = `${Math.random() * 20 + 20}px`;
+            icon.style.animationDelay = `${Math.random() * 20}s`;
+            icon.style.animationDuration = `${Math.random() * 10 + 15}s`;
+            container.appendChild(icon);
+        }
+
         // Typing Animation
         const typingText = document.getElementById('typing-text');
         const phrases = ["Business Strategist", "SQL Specialist", "Process Automator", "Solution Designer"];
-        let i = 0, j = 0, current = "", isDeleting = false;
+        let phraseIdx = 0, charIdx = 0, currentText = "", isDeleting = false;
 
         function type() {
-            current = phrases[i];
+            currentText = phrases[phraseIdx];
             if (isDeleting) {
-                typingText.textContent = current.substring(0, j--);
-                if (j < 0) { isDeleting = false; i = (i + 1) % phrases.length; }
+                typingText.textContent = currentText.substring(0, charIdx--);
+                if (charIdx < 0) { isDeleting = false; phraseIdx = (phraseIdx + 1) % phrases.length; }
             } else {
-                typingText.textContent = current.substring(0, j++);
-                if (j > current.length) isDeleting = true;
+                typingText.textContent = currentText.substring(0, charIdx++);
+                if (charIdx > currentText.length) isDeleting = true;
             }
             setTimeout(type, isDeleting ? 40 : 120);
         }
         type();
 
-        // Reveal on Scroll
-        const observer = new IntersectionObserver((entries) => {
+        // Reveal & Timeline Observer
+        const observerOptions = { threshold: 0.2 };
+        const revealObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    // Handle timeline dots
+                    if (entry.target.classList.contains('timeline-entry')) {
+                        const dotId = entry.target.getAttribute('data-dot-id');
+                        document.getElementById(dotId).classList.add('active');
+                    }
+                }
             });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }, observerOptions);
 
-        // Navbar Scroll
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // Navbar Scroll Logic
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
             if (window.scrollY > 50) nav.classList.add('glass', 'py-4', 'shadow-2xl');
             else nav.classList.remove('glass', 'py-4', 'shadow-2xl');
         });
 
-        // Mobile Menu Toggle
+        // Mobile Menu
         const btn = document.getElementById('mobile-toggle');
         btn.onclick = () => {
             const mobileNav = document.createElement('div');
-            mobileNav.className = 'fixed inset-0 bg-slate-950 z-[100] flex flex-col items-center justify-center space-y-8 text-2xl uppercase tracking-widest';
+            mobileNav.className = 'fixed inset-0 bg-slate-950 z-[100] flex flex-col items-center justify-center space-y-8 text-2xl uppercase tracking-widest font-bold';
             mobileNav.innerHTML = `
                 <a href="#home" onclick="this.parentElement.remove()">Home</a>
                 <a href="#about" onclick="this.parentElement.remove()">About</a>
